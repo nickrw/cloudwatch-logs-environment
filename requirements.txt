@@ -1,0 +1,2 @@
+awscli==1.11.16
+awscli-cwlogs==1.4.0
