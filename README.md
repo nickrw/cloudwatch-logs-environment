@@ -98,3 +98,24 @@ Simply set the environment variables for the sections you require and run
   not execute the agent.
 
 * `--dry-run` if present will execute the agent in dry-run mode
+
+
+## Running in docker
+
+Mount your log files into the container, or share logs between containers
+using volumes.
+
+```
+docker run \
+  -e AWS_DEFAULT_REGION=eu-west-1 \
+  -e ACCESS_LOG_LOG_GROUP_NAME=access_log \
+  -e ACCESS_LOG_DATETIME_FORMAT="%Y-%m-%dT%H:%M:%S" \
+  -e ACCESS_LOG_TIME_ZONE=UTC \
+  -e ACCESS_LOG_FILE=/var/log/httpd/access.log \
+  -v /var/log/httpd/access.log:/var/log/httpd/access.log \
+  nickrw/cloudwatch-logs-environment:latest
+```
+
+If you are not running this on an ec2 instance with role-based permissions you
+will also need to provide access keys via the environment: `AWS_ACCESS_KEY_ID`,
+`AWS_SECRET_ACCESS_KEY`
