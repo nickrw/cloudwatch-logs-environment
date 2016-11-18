@@ -5,6 +5,8 @@ from datetime import datetime
 
 now = datetime.now().strftime('%Y%m%d_%H%M')
 
+GENERAL_DEFAULTS = {}
+
 SECTION_DEFAULTS = {
     'log_stream_name': now + '_{hostname}',
     'time_zone': 'UTC',
@@ -25,16 +27,12 @@ class ConfigFile(object):
             self.ini.set(section, k, v)
 
     def autoconfigure(self):
-        options = extract_section_options_from_env('CWLOGS')
+        options = extract_section_options_from_env(
+            'CWLOGS', defaults=GENERAL_DEFAULTS)
         options.update({'state_file': self.state_path})
         self.add_section('general', options)
         for section in extract_sections_from_env():
-            self.add_log_section(*section)
-
-    def add_log_section(self, section, raw_options):
-        options = copy(SECTION_DEFAULTS)
-        options.update(raw_options)
-        self.add_section(section, options)
+            self.add_section(*section)
 
     def write(self):
         with open(self.config_path, 'w') as fh:
@@ -50,8 +48,8 @@ def section_name_is_valid(section_name):
     return True
 
 
-def extract_section_options_from_env(section_name):
-    options = {}
+def extract_section_options_from_env(section_name, defaults=SECTION_DEFAULTS):
+    options = copy(defaults)
     prefix = section_name + '_'
     for k, v in os.environ.items():
         if not k.startswith(section_name + '_'):

@@ -13,12 +13,10 @@ venv-%: requirements.txt requirements-dev.txt
 lint-%: venv-%
 	venv-$*/bin/flake8 cloudwatch_logs_environment
 
-#test-%: venv-%
-#	venv-$*/bin/py.test cloudwatch_logs_environment
+test-%: venv-%
+	venv-$*/bin/py.test -vv cloudwatch_logs_environment
 
-# test: lint-python3 test-python3
-test:
-	@echo "Skipping tests, they haven't been written yet"
+test: lint-python3 test-python3
 
 clean:
 	rm -rf build dist *.egg-info
