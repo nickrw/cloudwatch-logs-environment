@@ -40,10 +40,9 @@ setup(
     },
     license='MIT',
     classifiers=[
-        'Development Status :: 4 - Beta',
+        'Development Status :: 5 - Production/Stable',
         'License :: OSI Approved :: MIT License',
         'Intended Audience :: System Administrators',
         'Intended Audience :: Developers',
-        'Programming Language :: Python :: 3',
     ],
 )
