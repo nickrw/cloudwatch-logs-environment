@@ -3,7 +3,7 @@ SHELL := /bin/bash
 default: test dist
 
 dist: venv-python3
-	venv-python3/bin/python setup.py bdist_wheel --universal
+	venv-python3/bin/python setup.py bdist_wheel
 
 venv-%: requirements.txt requirements-dev.txt
 	virtualenv -p $* $@
@@ -28,7 +28,7 @@ doc:
 	pandoc --from=markdown --to=rst --output=README.rst README.md
 
 pypi: venv-python3
-	venv-python3/bin/python setup.py bdist_wheel --universal sdist upload
+	venv-python3/bin/python setup.py bdist_wheel sdist upload
 
 tag: venv-python3
 	git tag $(shell venv-python3/bin/python setup.py --version)
