@@ -7,6 +7,7 @@ dist: venv-python3
 
 venv-%: requirements.txt requirements-dev.txt
 	virtualenv -p $* $@
+	$@/bin/pip install --upgrade pip wheel setuptools
 	$@/bin/pip install -r <(cat requirements.txt requirements-dev.txt)
 	touch $@
 
