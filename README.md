@@ -99,6 +99,9 @@ Simply set the environment variables for the sections you require and run
 
 * `--dry-run` if present will execute the agent in dry-run mode
 
+* `--additional-section-dir` can be a path to a directory of files which will
+  concatenated to the file generated at `--config-path`
+
 
 ## Running in docker
 
